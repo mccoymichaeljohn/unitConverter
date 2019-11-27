@@ -12,6 +12,8 @@ function ConvertHandler() {
     let index = input.search(/[A-Za-z]/)
     let divisor = input.search(/\//);
     if (divisor > 0) {
+      let divisors = input.match(/\//g);
+      if (divisors.length > 1) return 'invalid number'
       let num1 = parseFloat(input.slice(0, divisor));
       let num2 = parseFloat(input.slice(divisor +1, index));
       return num1 / num2
@@ -33,6 +35,7 @@ function ConvertHandler() {
   this.getUnit = function(input) {
     let unit = input.match(/[a-zA-Z]+/gi)
     if (unit === null) return 'invalid unit';
+    unit[0] = unit[0].toLowerCase();
     if (unit[0] === 'mi' || unit[0] === 'km' || unit[0] === 'gal' || unit[0] === 'L' || unit[0] === 'lbs' || unit[0] === 'kg') return unit[0]
     return 'invalid unit';
   };
@@ -48,6 +51,7 @@ function ConvertHandler() {
   };
 
   this.spellOutUnit = function(unit) {
+    unit = unit.toLowerCase()
     if (unit === 'mi') return 'miles'
     if (unit === 'km') return 'kilometers'
     if (unit === 'gal') return 'gallons'
